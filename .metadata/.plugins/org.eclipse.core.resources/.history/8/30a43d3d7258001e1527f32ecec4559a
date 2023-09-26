@@ -1,0 +1,97 @@
+package com.dnb.jdbcdemo2.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dnb.jdbcdemo2.dto.Account;
+import com.dnb.jdbcdemo2.dto.Customer;
+import com.dnb.jdbcdemo2.exception.IdNotFoundException;
+import com.dnb.jdbcdemo2.repo.AccountRepository;
+import com.dnb.jdbcdemo2.repo.CustomerRepository;
+
+@Service("accountServiceImpl")
+public class AccountServiceImpl implements AccountService {
+
+	@Autowired // type, name
+//	@Qualifier("accountRespository2Impl")
+	private AccountRepository accountRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	@Override
+	public Account createAccount(Account account) throws IdNotFoundException {
+		Optional<Customer> customer = customerRepository.findById(account.getCustomer().getCustomerId());
+		
+		if (customer.isPresent()) {
+			account.setCustomer(customer.get());
+			return accountRepository.save(account);
+		} else
+			customer.orElseThrow(() -> new IdNotFoundException("customer is not valid one"));
+		// // TODO Auto-generated method stub
+		return null;
+
+	}
+
+	@Override
+	public Optional<Account> getAccountById(String accountId) {
+		// TODO Auto-generated method stub
+		return accountRepository.findById(accountId);
+	}
+
+	public boolean deleteAccountByID(String accountId) throws IdNotFoundException {
+
+		// TODO Auto-generated method stub
+
+		boolean isPresent = accountRepository.existsById(accountId);
+
+		if (isPresent) {
+
+			accountRepository.deleteById(accountId);
+
+		} else {
+
+			throw new IdNotFoundException("Id not Found");
+
+		}
+
+		if (accountRepository.existsById(accountId))
+
+			return false;
+
+		else
+
+			return true;
+
+	}
+
+	public Iterable<Account> getAllAccounts() {
+		return accountRepository.findAll();
+	}
+
+	@Override
+
+	public boolean checkAccountId(String accountId) {
+
+		if (accountRepository.existsById(accountId))
+
+			return true;
+
+		else
+
+			return false;
+	}
+
+	@Override
+
+	public List<Account> getAccountByContactNumber(String contactNumber) {
+
+		// TODO Auto-generated method stub
+
+		return accountRepository.findByContactNumber(contactNumber);
+
+	}
+
+}

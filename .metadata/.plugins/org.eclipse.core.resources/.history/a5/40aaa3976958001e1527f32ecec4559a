@@ -1,0 +1,11 @@
+#config server url
+#other props will be available
+#on git hub location (config server)
+#spring:
+#  application:
+#    name: discovery-server
+#  config:
+#    import: optional:configserver:http://localhost:8888
+
+  
+       

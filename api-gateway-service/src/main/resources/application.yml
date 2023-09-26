@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: api-gateway-service
+  config:
+    import: optional:configserver:http://localhost:8888
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: ACCOUNT-SERVICE
+#        uri: lb://ACCOUNT-SERVICE
+#        predicates:
+#        - Path=/api/account/**
+#      - id: CUSTOMER-SERVICE
+#        uri: lb://CUSTOMER-SERVICE
+#        predicates:
+#        - Path=/api/customer/** 
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#  jackson:
+#    serialization:
+#      fail-on-empty-beans: false
+#server:
+#  port: 9191
+#  error:
+#    include-message: always
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#  client:
+#      serviceUrl:
+#        defaultZone: http://localhost:8761/eureka
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: refresh,health

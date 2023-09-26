@@ -1,0 +1,16 @@
+#config server url
+#other props will be available
+#on git hub location (config server)
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+         uri: https://github.com/Rasurisandeep20/dnb-config-repo.git
+         username: Rasurisandeep20
+         password: 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
+         clone-on-start: true

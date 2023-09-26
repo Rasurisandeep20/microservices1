@@ -1,0 +1,5 @@
+package com.dnb.accountservice.service;
+
+public interface ApiClient {
+
+}
